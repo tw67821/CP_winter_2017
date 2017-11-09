@@ -8,9 +8,9 @@ public class PrimeNumbers {
         System.out.println("Please provide the numer: ");
         n = new Scanner(System.in).nextInt();
         int a = 0;
-        for (int i = 2;i < n;i++){
+        for (int i = 2;i <= n/2;i++){
             if (n%i==0){
-                a=a+1;
+                a++;
              if (a>0){break;}
             }}
         if (a==0 && n>1){
