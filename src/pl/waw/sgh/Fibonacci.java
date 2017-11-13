@@ -2,7 +2,7 @@ package pl.waw.sgh;
 
 import java.util.Scanner;
 
-public class Fibonnaci {
+public class Fibonacci {
 
         public static int fib ( int n){
             if (n==1)
@@ -11,10 +11,6 @@ public class Fibonnaci {
                 return 1;
             else
                 return fib(n-1)+fib(n-2);}
-
-
-
-
 
 public static void main(String[] args) {
 
@@ -31,8 +27,11 @@ public static void main(String[] args) {
             }
             if (i == 2) {
                 System.out.println("1");
-            }if(i>2)
+            }
+            if(i>2)
             System.out.println(fib(i));}
 
-}}}
+            }
+                                    }
+                        }
 
