@@ -1,6 +1,5 @@
 package pl.waw.sgh;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 public class SwitchOperator {
 
