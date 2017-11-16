@@ -7,7 +7,7 @@ public class Chocolate {
         int b = 0;
         if (goal % 5 == 0)
             return 0;
-
+return 1;
 
     }
 }

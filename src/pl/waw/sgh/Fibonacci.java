@@ -22,13 +22,7 @@ public static void main(String[] args) {
     }
     if(n>=1){
         for (int i=1;i<=n;i++){
-            if (i == 1) {
-                System.out.println("0");
-            }
-            if (i == 2) {
-                System.out.println("1");
-            }
-            if(i>2)
+
             System.out.println(fib(i));}
 
             }
