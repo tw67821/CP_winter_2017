@@ -12,7 +12,6 @@ public class Arrays2D {
         arr2D[2][3] = 245;
         arr2D[2][3] = 867;
         int sum1 = 0;
-        int sum2 = 0;
         for (int i = 0; i < arr2D.length; i++) {
 
             for (int j = 0; j < arr2D[i].length; j++) {
@@ -33,7 +32,6 @@ public class Arrays2D {
             for (int i = 0; i < arr2D.length; i++) {
 
                 sumC = sumC + arr2D[i][j];
-                sum2 = sum2 + sumC;
             }
 
             System.out.print(sumC + "\t");
