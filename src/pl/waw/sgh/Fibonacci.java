@@ -15,7 +15,7 @@ public class Fibonacci {
 public static void main(String[] args) {
 
     int n;
-    System.out.println("How many terms of the Fibonnaci Sequence do you want to see? ");
+    System.out.println("How many terms of the Fibonnaci Sequence would you like to see? ");
     n = new Scanner(System.in).nextInt();
     if (n < 1) {
         System.out.println("You have to provide the number greater than or equal to 1");
