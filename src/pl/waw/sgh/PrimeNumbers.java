@@ -14,9 +14,13 @@ public class PrimeNumbers {
              if (a>0){break;}
             }}
         if (a==0 && n>1){
+
             System.out.println("This is a prime numer");
+
         }else
+
             System.out.println("This is not a prime number");
+
         }
 
 
