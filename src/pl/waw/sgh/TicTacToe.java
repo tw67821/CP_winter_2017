@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-    static final String FILE_LOC = "C:\\testo.txt";
+    static final String FILE_LOC = "H:\\test.txt";
 
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File(FILE_LOC);
@@ -86,7 +86,7 @@ public class TicTacToe {
                 break;
             }
         }
-
+        //counting 0s
         for (int k = 0; k < 3; k++) {
 
             for (int j = 0; j < 3; j++) {
@@ -98,9 +98,10 @@ public class TicTacToe {
                 }
             }
         }
+        //nobody won
         if (b == 0 && sum1 != 3 && sum1 != -3 && sum2 != 3 && sum2 != -3 && sum3 != 3 && sum3 != -3 && sum4 != 3 && sum4 != -3)
             System.out.println("Nobody won");
-
+        // not finished
         if (b != 0 && sum1 != 3 && sum1 != -3 && sum2 != 3 && sum2 != -3 && sum3 != 3 && sum3 != -3 && sum4 != 3 && sum4 != -3)
             System.out.println("The game is not finished");
 
