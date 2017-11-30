@@ -10,7 +10,7 @@ public class openclose {
 
     public static void main(String[] args) throws IOException {
 
-        File folder = new File("C:\\CP");
+        File folder = new File("H:\\CP");
         File[] listOfFiles = folder.listFiles();
         double[][] b = new double[25][9];
         for (int a = 0; a < listOfFiles.length; a++) {
@@ -33,25 +33,28 @@ public class openclose {
                         j++;
 
                     }
-                    i++;}
+                    i++;
+                }
 
-                for (int k = 1;k <= 22; k++) {
+                for (int k = 1; k <= 22; k++) {
 
-                        b[k][6] = (b[k][4] - b[k][1]) / b[k][1];
-
-
-                        FileWriter fw = new FileWriter(listOfFiles[a], true);
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        bw.write(Double.toString(b[k][6]));
-                        bw.newLine();
-                        bw.close();
-                        fw.close();
-
-                    }}
-                  else if (listOfFiles[a].isDirectory()) {
-                            System.out.println("Directory " + listOfFiles[a].getName());
-
-                        }}
+                    b[k][6] = (b[k][4] - b[k][1]) / b[k][1];
 
 
-    }}
+                    FileWriter fw = new FileWriter(listOfFiles[a], true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    bw.write(Double.toString(b[k][6]));
+                    bw.newLine();
+                    bw.close();
+                    fw.close();
+
+                }
+            } else if (listOfFiles[a].isDirectory()) {
+                System.out.println("Directory " + listOfFiles[a].getName());
+
+            }
+        }
+
+
+    }
+}
