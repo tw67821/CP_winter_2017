@@ -12,7 +12,7 @@ public class FileOps {
        while (scanner.hasNext()){
            String myLine= scanner.nextLine();
            System.out.println(myLine);
-           String[] elem = myLine.split(":");
+           String[] elem = myLine.split(" ");
            for (String el : elem)
                System.out.println("= " +el);
        }
