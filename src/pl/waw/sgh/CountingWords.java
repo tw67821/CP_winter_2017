@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class CountingWords {
 
-    static final String FILE_LOC = "C:\\words2.txt";
+    static final String FILE_LOC = "H:\\words2.txt";
 
     private static String removeLastChar(String str) {
         return str.substring(0, str.length() - 1);
@@ -26,10 +26,11 @@ public class CountingWords {
 
         while (scanner.hasNext()) {
             String myLine = scanner.nextLine();
+            myLine = myLine.toLowerCase();
             String[] elem = myLine.split(" ");
 
             for (String el : elem) {
-                if (el.endsWith(".") || el.endsWith(",") || el.endsWith(":") || el.endsWith(";")) {
+                if (el.endsWith(".") || el.endsWith(",") || el.endsWith(":") || el.endsWith(";")|| el.endsWith("?")|| el.endsWith("!")) {
                     el = removeLastChar(el);
                 }
                 /*char first = el.charAt(0);
