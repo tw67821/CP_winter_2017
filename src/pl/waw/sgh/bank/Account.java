@@ -1,5 +1,8 @@
 package pl.waw.sgh.bank;
 
+import org.omg.CORBA.DynAnyPackage.Invalid;
+import pl.waw.sgh.bank.exceptions.InvalidSumException;
+
 import java.math.BigDecimal;
 
 public abstract class Account {
@@ -10,13 +13,33 @@ public abstract class Account {
 
     private Customer customer;
 
+    public void deposit(double amount) throws InvalidSumException {
+        checkAmount(amount);
+            balance = balance.add(new BigDecimal(amount));
+
+    }
+
+    private void checkAmount(double amount) throws InvalidSumException{
+    if (amount <= 0)
+            throw new InvalidSumException("You cannot charge a negative amount");}
+
+            public void charge(double amount) throws InvalidSumException {
+                checkAmount(amount);
+            balance = balance.subtract(new BigDecimal(amount));
+
+
+        }
+
+
+
+
     public Account(Integer accountID, BigDecimal balance, Customer customer) {
         this.accountID = accountID;
         this.balance = balance;
         this.customer = customer;
     }
 
-    public Account(Integer accountID, double balance, Customer customer) {
+    public Account(Integer accountID, Double balance, Customer customer) {
         this.accountID = accountID;
         this.balance = new BigDecimal(balance);
         this.customer = customer;
@@ -48,11 +71,11 @@ public abstract class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "accountID=" + accountID +
-                ", balance=" + balance +
-                ", customer=" + customer +
-                '}';
+        return this.getClass().getSimpleName().replace("Account", "") +
+                "{" +
+                "ID=" + accountID +
+                ", USD=" + balance +
+                ", cust=" + customer.getCustomerID() +
+                "}\n";
     }
-
 }
