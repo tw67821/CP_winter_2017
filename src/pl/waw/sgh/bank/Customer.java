@@ -51,12 +51,11 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Cust{" +
                 "ID=" + customerID +
-                ", fName='" + firstName + '\'' +
-                ", lName='" + lastName + '\'' +
-                ", e@='" + email + '\'' +
-                '}';
+                ", '" + firstName + '\'' +
+                " '" + lastName + '\'' +
+                ", @='" + email + '\'' +
+                "}\n";
     }
-
 }
