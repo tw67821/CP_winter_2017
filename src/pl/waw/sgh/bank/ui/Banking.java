@@ -7,8 +7,11 @@ public class Banking {
     public static void main(String[] args) {
         JFrame myBank = new JFrame("My Bank");
         myBank.setSize(600,600);
-        BankingApp bankingApp = new BankingApp();
-        myBank.add(bankingApp.getMainPanel());
+        Charge charge = new Charge();
+        myBank.add(charge.getMainPanel());
         myBank.setVisible(true);
+
+
     }
+
 }
