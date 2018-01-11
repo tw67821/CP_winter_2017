@@ -1,6 +1,5 @@
 package pl.waw.sgh.bank;
 
-import org.omg.CORBA.DynAnyPackage.Invalid;
 import pl.waw.sgh.bank.exceptions.InvalidSumException;
 
 import java.math.BigDecimal;
@@ -13,26 +12,6 @@ public abstract class Account {
 
     private Customer customer;
 
-    public void deposit(double amount) throws InvalidSumException {
-        checkAmount(amount);
-            balance = balance.add(new BigDecimal(amount));
-
-    }
-
-    private void checkAmount(double amount) throws InvalidSumException{
-    if (amount <= 0)
-            throw new InvalidSumException("You cannot charge a negative amount");}
-
-            public void charge(double amount) throws InvalidSumException {
-                checkAmount(amount);
-            balance = balance.subtract(new BigDecimal(amount));
-
-
-        }
-
-
-
-
     public Account(Integer accountID, BigDecimal balance, Customer customer) {
         this.accountID = accountID;
         this.balance = balance;
@@ -43,6 +22,23 @@ public abstract class Account {
         this.accountID = accountID;
         this.balance = new BigDecimal(balance);
         this.customer = customer;
+        this.balance = this.balance.setScale(2);
+    }
+
+    public void deposit(double amount) throws InvalidSumException {
+        checkAmount(amount);
+        balance = balance.add(new BigDecimal(amount));
+    }
+
+    private void checkAmount(double amount) throws InvalidSumException {
+        if (amount <= 0) throw new InvalidSumException(
+                "Amount " + amount + " to be deposited on Account ID: "
+                        + getAccountID() + " cannot be less than or equal 0");
+    }
+
+    public void charge(double amount) throws InvalidSumException {
+        checkAmount(amount);
+        balance = balance.subtract(new BigDecimal(amount));
     }
 
     public Integer getAccountID() {
@@ -71,7 +67,7 @@ public abstract class Account {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName().replace("Account", "") +
+        return this.getClass().getSimpleName().replace("Account","") +
                 "{" +
                 "ID=" + accountID +
                 ", USD=" + balance +

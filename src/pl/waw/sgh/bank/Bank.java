@@ -1,5 +1,6 @@
 package pl.waw.sgh.bank;
 
+import pl.waw.sgh.bank.exceptions.BankException;
 import pl.waw.sgh.bank.exceptions.InvalidSumException;
 import pl.waw.sgh.bank.exceptions.NonExistantAccountException;
 
@@ -16,18 +17,20 @@ public class Bank {
 
     private Integer lastAccountID = 0;
 
-    private Account findAccountByID(Integer id) throws NonExistantAccountException{
+    private Account findAccountByID(Integer id) throws NonExistantAccountException {
         for (Account tempAcc : accountList) {
             if (tempAcc.getAccountID().equals(id)) return tempAcc;
         }
         //return null;
-        throw new NonExistantAccountException("Account ID: "+" does not exist");
+        throw new NonExistantAccountException("Account ID: " + id + " does not exist");
     }
 
     //TODO
-    public void transfer(Integer fromAccID, Integer toAccID, double amount) throws NonExistantAccountException, InvalidSumException {
+    public void transfer(Integer fromAccID, Integer toAccID, double amount)
+//            throws NonExistantAccountException, InvalidSumException {
+            throws BankException {
         Account fromAccount = findAccountByID(fromAccID);
-        Account toAccount =findAccountByID(toAccID);
+        Account toAccount = findAccountByID(toAccID);
         fromAccount.charge(amount);
         toAccount.deposit(amount);
     }
@@ -43,7 +46,7 @@ public class Bank {
     private Account createAccount(Customer customer, boolean isSavings) {
         Account acc =
                 (isSavings ?
-                        new SavingsAccount(lastAccountID++, 0d, customer)
+                        new SavingAccount(lastAccountID++, 0d, customer)
                         :
                         new DebitAccount(lastAccountID++,0d,customer));
         accountList.add(acc);
