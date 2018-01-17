@@ -15,7 +15,6 @@ public class CountingWords {
         return str.substring(0, str.length() - 1);
     }
 
-
     public static void main(String[] args) throws FileNotFoundException {
 
         Map<String, Integer> myMap = new HashMap<>();
@@ -26,22 +25,20 @@ public class CountingWords {
 
         while (scanner.hasNext()) {
             String myLine = scanner.nextLine();
-            myLine = myLine.toLowerCase();
             String[] elem = myLine.split(" ");
 
             for (String el : elem) {
-                if (el.endsWith(".") || el.endsWith(",") || el.endsWith(":") || el.endsWith(";")|| el.endsWith("?")|| el.endsWith("!")) {
+                if (el.endsWith(".") || el.endsWith(",") || el.endsWith(":") || el.endsWith(";") || el.endsWith("?") || el.endsWith("!")) {
                     el = removeLastChar(el);
                 }
-                /*char first = el.charAt(0);
+                char first = el.charAt(0);
                 char first1 = 0;
                 if (Character.isUpperCase(first)){
                     first1 = first;
                     first += 32;
-                    el.replace(first1, first);
+                    el = el.replace(first1, first);
 
-                }*/
-
+                }
                 if (myMap.containsKey(el)) {
                     myMap.put(el, myMap.get(el) + 1);
                 } else {

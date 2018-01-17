@@ -26,15 +26,18 @@ public class Bank {
     }
 
     //TODO
-    public void transfer(Integer fromAccID, Integer toAccID, double amount)
-//            throws NonExistantAccountException, InvalidSumException {
-            throws BankException {
+    public void transfer (Integer fromAccID, Integer toAccID, double amount) throws BankException {
+        double d = Double.valueOf(String.valueOf(findAccountByID(fromAccID).getBalance()));
         Account fromAccount = findAccountByID(fromAccID);
         Account toAccount = findAccountByID(toAccID);
-        fromAccount.charge(amount);
-        toAccount.deposit(amount);
+        if (d >= amount) {
+            System.out.println("Account balance:" + d);
+            fromAccount.charge(amount);
+            toAccount.deposit(amount);
+        } else {
+            System.out.println("Transfer is not possible, because the balance is too low");
+        }
     }
-
     public Customer createCustomer(String firstName,
                                    String lastName, String email) {
         Customer customer =
@@ -46,7 +49,7 @@ public class Bank {
     private Account createAccount(Customer customer, boolean isSavings) {
         Account acc =
                 (isSavings ?
-                        new SavingAccount(lastAccountID++, 0d, customer)
+                        new SavingsAccount(lastAccountID++, 0d, customer)
                         :
                         new DebitAccount(lastAccountID++,0d,customer));
         accountList.add(acc);
