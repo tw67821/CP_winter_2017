@@ -12,7 +12,9 @@ public class OurThreads {
             myThreads[i] = new MyThread("T_"+i);
         }
 
+/*
         for (int i=0;)
+*/
 
 
        /* MyThread myThreadA = new MyThread("A");

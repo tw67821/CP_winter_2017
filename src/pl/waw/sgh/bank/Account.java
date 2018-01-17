@@ -1,77 +1,97 @@
 package pl.waw.sgh.bank;
-
-import pl.waw.sgh.bank.exceptions.InvalidSumException;
-
 import java.math.BigDecimal;
-
 public abstract class Account {
+    private Integer Account_ID;
+    private BigDecimal Balance;
+    private Customer Customer;
+    private String Currency="USD";
 
-    private Integer accountID;
 
-    private BigDecimal balance;
 
-    private Customer customer;
+    public Account(Integer Account_ID, BigDecimal Balance, Customer Customer){
+        this.Account_ID=Account_ID;
+        this.Balance=Balance;
+        this.Customer=Customer;
+    }
+    public Account(Integer Account_ID, Double Balance, Customer Customer){
+        this.Account_ID=Account_ID;
+        this.Balance=new BigDecimal(Balance);
+        this.Customer=Customer;
+        this.Balance=this.Balance.setScale(2);
 
-    public Account(Integer accountID, BigDecimal balance, Customer customer) {
-        this.accountID = accountID;
-        this.balance = balance;
-        this.customer = customer;
+    }
+    public void Deposit(double Amount){
+        //exception handling - amount less or equal 0:
+        if(Amount<=0){
+            System.out.println("Amount has to be greater than 0! You wanted to deposit: " + Amount +" on account ID: " + getAccount_ID() + "\nPlease provide amount greater than 0 to carry out the operation" );
+            Balance=Balance.add(new BigDecimal(0));
+        }
+        else
+        {Balance=Balance.add(new BigDecimal(Amount));}
+    }
+    public void Charge(double Amount){
+        Double Balance1=getBalance().doubleValue();
+        //exception handling - amount less or equal 0:
+        if(Amount<=0){
+            System.out.println("Amount has to be greater than 0! You wanted to charge: " + Amount +" on account ID: " + getAccount_ID() + "\nPlease provide amount greater than 0 to carry out the operation" );
+        }
+
+        //exception handling - amount greater than balance:
+
+        else if (Amount >= Balance1){
+            System.out.println("Insufficient funds. Amount has to be smaller than or equal to your balance! You wanted to charge: " + Amount +" on account ID: " + getAccount_ID() + "\nCurrent balance of account ID: "+ getAccount_ID() + " is: "+ getBalance() +"\nPlease provide correct amount to carry out the operation" );
+        }
+        else{
+            Balance=Balance.subtract(new BigDecimal(Amount));}
+
     }
 
-    public Account(Integer accountID, Double balance, Customer customer) {
-        this.accountID = accountID;
-        this.balance = new BigDecimal(balance);
-        this.customer = customer;
-        this.balance = this.balance.setScale(2);
+    public Integer getAccount_ID() {
+        return Account_ID;
     }
-
-    public void deposit(double amount) throws InvalidSumException {
-        checkAmount(amount);
-        balance = balance.add(new BigDecimal(amount));
-    }
-
-    private void checkAmount(double amount) throws InvalidSumException {
-        if (amount <= 0) throw new InvalidSumException(
-                "Amount " + amount + " to be deposited on Account ID: "
-                        + getAccountID() + " cannot be less than or equal 0");
-    }
-
-    public void charge(double amount) throws InvalidSumException {
-        checkAmount(amount);
-        balance = balance.subtract(new BigDecimal(amount));
-    }
-
-    public Integer getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(Integer accountID) {
-        this.accountID = accountID;
+    public void setAccount_ID(Integer Account_ID){
+        this.Account_ID=Account_ID;
     }
 
     public BigDecimal getBalance() {
-        return balance;
+        return Balance;
     }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setBalance(BigDecimal Balance){
+        this.Balance=Balance;
     }
 
     public Customer getCustomer() {
-        return customer;
+        return Customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Customer Customer) {
+        this.Customer = Customer;
+    }
+
+    public void charge(double Amount) {
+
+        Balance = Balance.subtract(new BigDecimal(Amount));
+    }
+    public void deposit(double Amount) {
+
+        Balance = Balance.add(new BigDecimal(Amount));
+    }
+
+    public String getCurrency() {
+        return Currency;
+    }
+
+    public void setCurrency(String Currency) {
+        this.Currency = Currency;
     }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName().replace("Account","") +
+        return this.getClass().getSimpleName().replace("Account", "") +
                 "{" +
-                "ID=" + accountID +
-                ", USD=" + balance +
-                ", cust=" + customer.getCustomerID() +
+                "ID=" + Account_ID +
+                "," + Currency + "=" + Balance +
+                ", cust=" + Customer.getCustomer_ID() +
                 "}\n";
     }
 }

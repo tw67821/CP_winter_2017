@@ -1,61 +1,56 @@
 package pl.waw.sgh.bank;
 
 public class Customer {
+    private Integer Customer_ID;
+    private String First_name;
+    private String Last_name;
+    private String Email;
 
-    private Integer customerID;
+    public Customer(Integer Customer_ID, String First_name, String Last_name, String Email){
+        this.Customer_ID=Customer_ID;
+        this.First_name=First_name;
+        this.Last_name=Last_name;
+        this.Email=Email;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
-    public Customer(Integer customerID, String firstName, String lastName, String email) {
-        this.customerID = customerID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    }
+    public Integer getCustomer_ID() {
+        return Customer_ID;
     }
 
-    public Integer getCustomerID() {
-        return customerID;
+    public void setCustomer_ID(Integer Customer_ID) {
+        this.Customer_ID = Customer_ID;
+    }
+    public String getFirst_name() {
+        return First_name;
+    }
+    public void setFirst_name(String First_name){
+        this.First_name=First_name;
     }
 
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
+    public String getLast_name() {
+        return Last_name;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String Last_name) {
+        this.Last_name = Last_name;
     }
 
     public String getEmail() {
-        return email;
-    }
+        return Email;
 
-    public void setEmail(String email) {
-        this.email = email;
+    }
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     @Override
-    public String toString() {
-        return "Cust{" +
-                "ID=" + customerID +
-                ", '" + firstName + '\'' +
-                " '" + lastName + '\'' +
-                ", @='" + email + '\'' +
+    public String toString(){
+        return  "Cust{"+
+                "ID="+Customer_ID+
+                ", '"+First_name+'\''+
+                " '"+Last_name+'\''+
+                ", Email="+Email+'\''+
                 "}\n";
     }
+
 }

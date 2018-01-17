@@ -1,90 +1,101 @@
 package pl.waw.sgh.bank;
-
 import pl.waw.sgh.bank.exceptions.BankException;
-import pl.waw.sgh.bank.exceptions.InvalidSumException;
-import pl.waw.sgh.bank.exceptions.NonExistantAccountException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
+    private List<Customer> Customer_list=new ArrayList<>();
+    private List<Account> Account_list=new ArrayList<>();
 
-    private List<Customer> customerList = new ArrayList<>();
+    private Integer Last_Customer_ID=0;
+    private Integer Last_Account_ID=0;
 
-    private List<Account> accountList = new ArrayList<>();
+    //private Double Balance;
 
-    private Integer lastCustomerID = 0;
+    public List<Account> FindAccountByCustomer(Customer Customer){
 
-    private Integer lastAccountID = 0;
-
-    private Account findAccountByID(Integer id) throws NonExistantAccountException {
-        for (Account tempAcc : accountList) {
-            if (tempAcc.getAccountID().equals(id)) return tempAcc;
+        List<Account> CustomerAccounts=new ArrayList<>();
+        for(Account Account : Account_list){
+            if(Account.getCustomer().equals(Customer)) CustomerAccounts.add(Account);
         }
-        //return null;
-        throw new NonExistantAccountException("Account ID: " + id + " does not exist");
+        return CustomerAccounts;
     }
 
-    //TODO
-    public void transfer (Integer fromAccID, Integer toAccID, double amount) throws BankException {
-        double d = Double.valueOf(String.valueOf(findAccountByID(fromAccID).getBalance()));
-        Account fromAccount = findAccountByID(fromAccID);
-        Account toAccount = findAccountByID(toAccID);
-        if (d >= amount) {
-            System.out.println("Account balance:" + d);
-            fromAccount.charge(amount);
-            toAccount.deposit(amount);
-        } else {
-            System.out.println("Transfer is not possible, because the balance is too low");
+    public Customer FindCustomerByID(Integer ID) throws BankException{
+        for(Customer Customer : Customer_list){
+            if(ID.equals(Customer.getCustomer_ID())) return Customer;
+        }
+        throw new BankException("Customer with ID: " + ID + " does not exist");
+    }
+
+    private Account FindAccountByID(Integer ID){
+        for(Account TempAcc:Account_list){
+            if(TempAcc.getAccount_ID().equals(ID)) {
+                return TempAcc;
+            }
+        }
+        return null;
+    }
+
+
+
+    public void Transfer(Integer FromAccID, Integer ToAccID, double Amount){
+        Account FromAccount = FindAccountByID(FromAccID);
+        Double Balance0 = FromAccount.getBalance().doubleValue();
+        //exception handling - amount less or equal 0:
+        if(Amount<=0){
+            System.out.println("Amount has to be greater than 0! You wanted to transfer: " + Amount +" from account ID: " + FromAccID + "\nPlease provide amount greater than 0 to carry out the operation" );
+        }
+        //exception handling - amount greater than balance:
+        else if (Amount >= Balance0){
+            System.out.println("Insufficient funds. Amount has to be smaller than or equal to your balance! You wanted to transfer: " + Amount +" from account ID: " + FromAccID + "\nCurrent balance of account ID: "+ FromAccID + " is: " + Balance0 +"\nPlease provide correct amount to carry out the operation");
+        }
+
+        else {
+            Account ToAccount = FindAccountByID(ToAccID);
+            FromAccount.charge(Amount);
+            ToAccount.deposit(Amount);
         }
     }
-    public Customer createCustomer(String firstName,
-                                   String lastName, String email) {
-        Customer customer =
-                new Customer(lastCustomerID++,firstName,lastName,email);
-        customerList.add(customer);
-        return customer;
+    public Customer CreateCustomer(String First_Name, String Last_Name, String Email){
+        Customer Customer=new Customer(Last_Customer_ID++,First_Name,Last_Name,Email);
+        Customer_list.add(Customer);
+        return Customer;
     }
 
-    private Account createAccount(Customer customer, boolean isSavings) {
-        Account acc =
-                (isSavings ?
-                        new SavingsAccount(lastAccountID++, 0d, customer)
-                        :
-                        new DebitAccount(lastAccountID++,0d,customer));
-        accountList.add(acc);
+    private Account CreateAccount(Customer Customer, boolean isSavings){
+        Account acc=(isSavings ? new SavingsAccount(Last_Account_ID++,0d,Customer):new DebitAccount(Last_Account_ID++,0d,Customer));
+        Account_list.add(acc);
         return acc;
     }
-
-    public Account createSavingsAccount(Customer customer) {
-        return createAccount(customer, true);
+    public Account CreateSavingsAccount(Customer Customer){
+        return  CreateAccount(Customer, true);
+    }
+    public Account CreateDebitAccount(Customer Customer){
+        return CreateAccount(Customer,false);
     }
 
-    public Account createDebitAccount(Customer customer) {
-        return createAccount(customer, false);
+    public List <Customer> getCustomer_list(){
+        return Customer_list;
+    }
+    public void setCustomer_list(List<Customer> Customer_list){
+        this.Customer_list=Customer_list;
     }
 
-    public List<Customer> getCustomerList() {
-        return customerList;
+    public List<Account> getAccount_list() {
+        return Account_list;
+    }
+    public void setAccount_list(List<Account> Account_list){
+        this.Account_list=Account_list;
     }
 
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
-    }
-
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
-    }
 
     @Override
     public String toString() {
         return "Bank{" +
-                "custs=\n" + customerList +
-                ",\n accs=\n" + accountList +
+                "customers=\n" + Customer_list +
+                ",\n accounts=\n" + Account_list +
                 '}';
     }
 }
